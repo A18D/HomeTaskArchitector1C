@@ -1,0 +1,33 @@
+C4Context
+title Схема интеграции систем 1С (System Context)
+
+Person(executor, "Пользователь-исполнитель")
+Person(manager, "Пользователь-руководитель")
+
+System(erp1c, "ERP 1С:Предприятие", "Основная ERP система")
+System(warehouse1c, "Управление торговлей 1С", "Система учета складов")
+System(accounting1c, "Бухгалтерия 1С", "Бухгалтерский учет")
+System(crm1c, "CRM 1С", "Система управления клиентами")
+
+System_Ext(bank, "Банк", "Внешняя банковская система")
+System_Ext(supplier, "Поставщики", "Системы поставщиков")
+System_Ext(tax, "ФНС", "Налоговая служба")
+System_Ext(mail, "Email сервис", "Почтовый сервис")
+
+Enterprise_Boundary(1c_boundary, "Корпоративные системы 1С") {
+    System(erp1c, "ERP 1С:Предприятие", "Основная ERP система")
+    System(warehouse1c, "Управление торговлей 1С", "Система учета складов")
+    System(accounting1c, "Бухгалтерия 1С", "Бухгалтерский учет")
+    System(crm1c, "CRM 1С", "Система управления клиентами")
+}
+
+Rel(executor, erp1c, "Вводит данные", "Тонкий клиент")
+Rel_D(manager, erp1c, "Смотрит отчеты", "Тонкий клиент")
+Rel(erp1c, warehouse1c, "Синхронизация остатков", "HTTP/1C:Enterprise")
+Rel(erp1c, accounting1c, "Передача документов", "HTTP/1C:Enterprise")
+Rel(erp1c, crm1c, "Обмен клиентами", "HTTP/1C:Enterprise")
+
+Rel(bank, erp1c, "Платежи", "1C:DirectBanking")
+Rel(supplier, erp1c, "НСИ/заказы", "AMQP")
+Rel(erp1c, tax, "Отчетность", "HTTPS/XML")
+Rel(erp1c, mail, "Уведомления", "SMTP/1C:Enterprise")
