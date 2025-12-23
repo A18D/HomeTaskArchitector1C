@@ -1,0 +1,3 @@
+﻿Modified: Configuration.БиблиотекаСтандартныхПодсистемДемо
+Modified: Configuration.БиблиотекаСтандартныхПодсистемДемо.ParentConfigurations
+Modified: Document._ДемоРеализацияТоваров
