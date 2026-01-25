@@ -6,3 +6,8 @@ ConfigDumpInfo.xml
 build
 out
 .scannerwork
+*.bin
+*.data
+*.meta
+*.index
+.clean
