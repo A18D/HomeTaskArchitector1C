@@ -11,3 +11,4 @@ out
 *.meta
 *.index
 .clean
+syncCF.cmd
