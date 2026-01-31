@@ -3,7 +3,7 @@
 
 # --Параметры скрипта.НАЧАЛО--
 prefix="Task-" # Префикс для поиска задачи в коммите
-DebugMode=True # Режим отладки скрипта с выводом сообщений без фиксации в фича ветки. Если не True, то боевой режим.
+DebugMode=False # Режим отладки скрипта с выводом сообщений без фиксации в фича ветки. Если не True, то боевой режим.
 # --Параметры скрипта.КОНЕЦ--
 
 git pull
@@ -22,7 +22,8 @@ for i in "${my_array[@]}"
         committext=$(git show -s --format=%s $commit)
         echo "Вывод текста коммита: $committext"
         # Коммиты с ci и skip исключаем из фиксации в фича ветку
-        if [[ "$i" =~ "ci:" ]] || [[ "$i" =~ "skip" ]] || [[ "$i" =~ "Update .gitlab-ci.yml" ]] then
+        if ([[ "$i" =~ "ci:" ]] || [[ "$i" =~ "skip" ]] || [[ "$i" =~ "Update .gitlab-ci.yml" ]])
+        then
             echo "Внимание! Это технический коммит. Выходим из цикла без фиксации в фича ветке"
             continue
         fi
@@ -39,7 +40,8 @@ for i in "${my_array[@]}"
         echo "Фиксируем  результат в ветке фичи"
         echo git checkout -B "feature/${BranchName}" "origin/feature/${BranchName}" || git checkout -B "feature/${BranchName}"
         echo git cherry-pick --keep-redundant-commits --strategy-option=recursive -X=theirs ${commit}
-        if [[ "$DebugMode" != "True" ]] then
+        if ([[ "$DebugMode" != "True" ]])
+        then
             git checkout -B "branch_sync_hran" "origin/branch_sync_hran"
             git checkout -B "feature/${BranchName}" "origin/feature/${BranchName}" || git checkout -B "feature/${BranchName}"
             git cherry-pick --keep-redundant-commits --strategy-option=recursive -X=theirs ${commit}
@@ -52,7 +54,8 @@ for i in "${my_array[@]}"
         fi
     done
 
-if [[ "$DebugMode" != "True" ]] then
+if ([[ "$DebugMode" != "True" ]])
+then
     git reset
     git checkout -B "branch_sync_hran" "origin/branch_sync_hran"
     git merge "storage_1c"
