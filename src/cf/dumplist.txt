@@ -1,0 +1,3 @@
+﻿New: CommonModule.ОбщийМодуль1
+New: CommonModule.ОбщийМодуль1.Module
+Modified: Configuration.ПодготовкаКСертификации_02
