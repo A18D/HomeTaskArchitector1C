@@ -1,8 +1,14 @@
 .env
 build/
 allure-report/
-
+chmod.cmd
 ConfigDumpInfo.xml
 build
 out
 .scannerwork
+*.bin
+*.data
+*.meta
+*.index
+.clean
+syncCF.cmd
